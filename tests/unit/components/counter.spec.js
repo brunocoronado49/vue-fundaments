@@ -7,6 +7,7 @@ describe('Counter component test', () => {
     beforeEach(() => {
         wrapper = shallowMount(Counter)
     })
+
     // test('Document snapshot must be equal', () => {
     //     const wrapper = shallowMount(Counter)
     //     expect(wrapper.html).toMatchSnapshot()
@@ -44,6 +45,17 @@ describe('Counter component test', () => {
         const { start } = wrapper.props()
         const value = wrapper.find('[data-testid="counter"]').text()
         expect(value).toBe(start.toString())
+    })
+
+    test('should show prop msg', () => {
+        const msg = 'Hello World'
+        const wrapper = shallowMount(Counter, {
+            props: {
+                msg
+            }
+        })
+        
+        expect(wrapper.find('h2').text()).toBe(msg)
     })
 })
 
