@@ -42,7 +42,7 @@ export default {
             return this.counter * this.counter
         }, 
         customTitle() {
-            return this.msg || 'Counter'
+            return this.msg || 'Counter!'
         }
     }
 }

@@ -1,38 +1,49 @@
 import { shallowMount } from '@vue/test-utils'
-import Counter from '@/components/Counter';
+import Counter from '@/components/Counter'
 
-describe('Counter Component', () => {
+describe('Counter component test', () => {
     let wrapper;
 
-    // test('Must match with the snapshot', () => {
-    //     const wrapper = shallowMount(Counter);
-    //     expect(wrapper.html()).toMatchSnapshot();
+    beforeEach(() => {
+        wrapper = shallowMount(Counter)
+    })
+    // test('Document snapshot must be equal', () => {
+    //     const wrapper = shallowMount(Counter)
+    //     expect(wrapper.html).toMatchSnapshot()
     // })
 
-    test('H2 must have default value "Counter"', () => {
-        const wrapper = shallowMount(Counter);
-        expect(wrapper.find('h2').exists()).toBeTruthy()
-        const h2 = wrapper.find('h2').text();
-        expect(h2).toBe('Counter');
+    test('Should render h2 tag defauly value counter', () => {
+        expect(wrapper.find('h10').exists()).toBeFalsy()
+        const h2Value = wrapper.find('h2').text()
+        expect(h2Value).toBe('Counter!')
     })
 
-    test('Default value must be 100 in p tag', () => {
-        const wrapper = shallowMount(Counter);
+    test('default value should be 100 in p tag', async() => {
+        // homework
+        const pValue = wrapper.find('[data-testid="counter"]').text()
+        expect(pValue).toBe('100')
 
-        const value = wrapper.find('[data-testid="counter"]').text();
-
-        expect(value).toBe('100')
+        const [btnDecrement, btnIncrement] = wrapper.findAll('button')
+        await btnIncrement.trigger('click')
     })
 
-    test('Should increment and decrement the value in 1 and 2', async() => {
-        const wrapper = shallowMount(Counter);
-        const [btnDecrease, btnIncrease] = wrapper.findAll('button');
-        
-        await btnIncrease.trigger('click');
-        await btnDecrease.trigger('click');
-        await btnDecrease.trigger('click');
+    test('should increment and decrement the value in 1 and in 2', async () => {
+        const [btnDecrement, btnIncrement] = wrapper.findAll('button')
 
-        let value = wrapper.find('[data-testid="counter"]').text();
-        expect(value).toBe('99');
+        await btnIncrement.trigger('click')
+        await btnIncrement.trigger('click')
+        await btnIncrement.trigger('click')
+        await btnDecrement.trigger('click')
+        await btnDecrement.trigger('click')
+
+        let pValue = wrapper.find('[data-testid="counter"]').text()
+        expect(pValue).toBe('101')
+    })
+
+    test('should set the default value', () => {
+        const { start } = wrapper.props()
+        const value = wrapper.find('[data-testid="counter"]').text()
+        expect(value).toBe(start.toString())
     })
 })
+

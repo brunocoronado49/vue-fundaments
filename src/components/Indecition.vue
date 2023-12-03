@@ -40,7 +40,8 @@ export default {
     methods: {
         async getAnswer() {
             this.answer = 'Loading...'
-            const {answer, image} = await fetch('https://yesno.wtf/api').then(res => res.json())
+            const {answer, image} = await fetch('https://yesno.wtf/api')
+                .then(res => res.json())
             
             this.answer = answer === 'yes' ? 'Si!' : 'No!'
             this.img = image
