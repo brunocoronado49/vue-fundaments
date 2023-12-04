@@ -31,6 +31,7 @@ export default {
     watch: {
         question(value, oldValue) {
             this.isValidQuestion = false
+            console.log({ value })
 
             if (!value.includes('?')) return
             this.isValidQuestion = true
@@ -39,12 +40,18 @@ export default {
     },
     methods: {
         async getAnswer() {
-            this.answer = 'Loading...'
-            const {answer, image} = await fetch('https://yesno.wtf/api')
-                .then(res => res.json())
-            
-            this.answer = answer === 'yes' ? 'Si!' : 'No!'
-            this.img = image
+            try {
+                this.answer = 'Loading...'
+                const {answer, image} = await fetch('https://yesno.wtf/api')
+                    .then(res => res.json())
+                
+                this.answer = answer === 'yes' ? 'Si!' : 'No!'
+                this.img = image
+            } catch(error) {
+                console.log('Indecision error:', error)
+                this.answer = 'Cannot load api'
+                this.img = null
+            }
         }
     }
 }

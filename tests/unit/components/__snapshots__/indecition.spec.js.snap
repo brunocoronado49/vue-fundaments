@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Indecition component test should do match with snapshot 1`] = `
+exports[`Indecision component test should do match with snapshot 1`] = `
 <!--v-if-->
 <div class="bg-dark"></div>
 <div class="indecition-container"><input type="text" placeholder="Ask me a question">
